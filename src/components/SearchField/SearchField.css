@@ -1,0 +1,15 @@
+.filter-container{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: ; */
+    align-items: center;
+}
+
+.filter-container >input{
+    width: 270px;
+    font-size: 18px;
+    padding: 5px;
+    background-color: inherit;
+    color: rgb(165,165,165);
+    border-style: hidden;
+}
