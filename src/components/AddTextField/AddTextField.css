@@ -1,4 +1,4 @@
-.addTextField{
+.addContentType{
     border: 3px dotted rgb(100,83,209);
     border-radius: 10px;
     margin-top: 15px;
@@ -11,7 +11,7 @@
     padding-right: 10px;
     background-color: white;
 }
-.addTextField>*{
+.addContentType>*{
     color:rgb(80,31,198);
     font-weight:500
 }
@@ -31,4 +31,23 @@
 }
 .contents>*{
     color: rgb(144,144,144);
+}
+
+.addTextField{
+    border: 3px dotted rgb(100,83,209);
+    border-radius: 10px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 44vw;
+    align-items: center;
+    margin-top: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+}
+.addTextField>*{
+    color:rgb(80,31,198);
+    font-weight:500
 }
