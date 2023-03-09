@@ -10,6 +10,16 @@ export const GET_CONTENT_BY_ID = (ContentID) => ({
     method: 'GET'
 });
 
+export const GET_CONTENT_ENTRIES = (ContentID) => ({
+    url: `content/${ContentID}/entries`,
+    method: 'GET'
+});
+
+export const ADD_CONTENT = {
+    url: 'content',
+    method: 'POST'
+};
+
 // export const GET_EVENT_BY_ID = (EventID) => ({
 //     url: `api/events/${EventID}`,
 //     method: 'GET'
