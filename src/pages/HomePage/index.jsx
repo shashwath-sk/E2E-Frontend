@@ -5,31 +5,41 @@ import ContentTypeContext from '../../context/contentTypeContext';
 import makeRequest from '../../utils/makeRequest';
 import {GET_CONTENT_BY_ID} from '../../constants/apiEndPoint';
 import pencil1 from '../../assets/pencil/pencil1.png';
+import edit1 from '../../assets/edit/edit1.png';
+import delete1 from '../../assets/delete/delete1.png';
+import Modal from '../../components/AddNewContentModel';
 import './HomePage.css';
 
 export default function HomePage() {
 
     const { ContentType } = React.useContext(ContentTypeContext);
     const [content,setContent] = React.useState();
+    const [showModal,setShowModal] = React.useState(false);
     // const [Entries,setEntries]= React.useState();
 
-    const handleClick = async(contentId) => {
+    const handleContentClick = async(contentId) => {
         const response = await makeRequest(GET_CONTENT_BY_ID(contentId));
         setContent(response);
-
+        // const entries = await makeRequest(GET_CONTENT_ENTRIES(contentId));
+        // setEntries(entries.length);
     };
-    
+
+
+    const handleAddContentClick = async() => {
+        setShowModal(true);
+    };
     return(
         <div className='home-page-container'>
             <ViewBar/>
             <div className='home-page-contents'>
-                <Header textValue = "content Types"/>
+                <Header textValue = "Content Types"/>
                 <div className='content-types-fields'>
                     <div className='content-types'>
                         {ContentType&& <SearchField  placeholder={`${ContentType.length} Types` } />}
-                        <AddTextField style="addTextField" placeholder='+New Type'/>
+                        <AddTextField style="addContentType" placeholder='+New Type' handleClick={handleAddContentClick} />
+                        <Modal onClose={() => setShowModal(false)} show={showModal} />
                         {ContentType && ContentType.map((content,index) => (
-                            <AddTextField key={index} style="contents" placeholder={content.Name} placeholder2={content.Entries} contentId = {content.id} handleClick = {handleClick}/>
+                            <AddTextField key={index} style="contents" placeholder={content.Name} placeholder2={content.Entries} contentId = {content.id} handleClick = {handleContentClick}/>
                         ))}
                     </div>
                     <div className='content-fields'>
@@ -38,6 +48,23 @@ export default function HomePage() {
                             <div className='content-info'>
                                 <h1>{content.Name}</h1>
                                 <img src={pencil1} className="edit-img"alt="pencil" />
+                            </div>
+                            <span className='entries-info'>{`${Object.keys(content.Fields).length} Fields`}</span>
+                            <AddTextField style="addTextField" placeholder='Add Another Field'/>
+                            <div className='all-fields'>
+                                {Object.keys(content.Fields).map((field,index) => (
+                                    <div className='each-field' key={index}>
+                                        <div>
+                                            <spna className="type-icon">Ab</spna>
+                                            <span className='field-name'>{field}</span>
+                                        </div>
+                                        <span className='field-type'>String</span>
+                                        <div className='field-options'>
+                                            <img src={edit1} className="edit-img"alt="edit" />
+                                            <img src={delete1} className="delete-img"alt="delete" />
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </>}
                     </div>

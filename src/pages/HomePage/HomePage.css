@@ -12,7 +12,7 @@
     height: 89vh;
     width: 310px;
     background-color: rgb(212,214,228);
-    padding: 30px;
+    padding: 35px;
 }
 .content-fields{
     height: 89vh;
@@ -21,18 +21,53 @@
 }
 .content-fields{
     margin: 0;
-    padding-left: 30px;
+    padding: 30px;
+    padding-left: 50px;
 }
 .content-info>h1{
     color:rgb(79,79,79)!important;
+    font-size: 35px;
 }
 .content-info{
     display: flex;
     align-items: center;
-    gap: 0 20px;
+    gap: 0px 20px;
     margin: 0px;
 }
 .edit-img{
     height: 20px;
     width: 20px;
+}
+.entries-info{
+    margin-top: 20px!important;
+    font-size: 25px;
+}
+.each-field{
+    border-radius: 10px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 50px;
+    width: 46vw;
+    align-items: center;
+    background-color: white;
+}
+.field-name{
+    padding-left: 15px;
+}
+.type-icon{
+    padding:15px 20px 15px 20px;
+    background-color: rgb(122,147,247);
+    /* border-radius: 10px; */
+}
+.field-type-options{
+    display: flex;
+    justify-content: space-between;
+}
+.field-type{
+    /* padding-right: 100px; */
+}
+.field-options{
+    padding-right: 20px;
 }
