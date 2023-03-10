@@ -13,7 +13,6 @@ export default function DashBoard() {
     const [showModal, setShowModal] = React.useState(false);
     const navigate = useNavigate();
     const[content,setContent] = React.useState();
-    // const {ContentType,setContentType} = React.useContext(ContentTypeContext);
     const [contentEntries,setContentEntries] = React.useState();
 
     const {id} = useParams();
@@ -32,7 +31,6 @@ export default function DashBoard() {
     },[]);
 
     const handleDelete = async(entryId) => {
-        // url: `content/${ContentID}/entries/:${entryId}`,
         console.log(DELETE_CONTENT_ENTRIES(1,3).url);
         const response = await makeRequest(DELETE_CONTENT_ENTRIES(content.id,entryId),navigate);
         console.log(response);
@@ -55,15 +53,9 @@ export default function DashBoard() {
                     <div className="table-content-title">
                         <div className="content-entries-fields">
                             <span>Id</span>
-                            {
-                                (fields.slice(0,3)).map((key,id) => {
-                                    return (
-                                        <div key={id}>
-                                            <span>{key}</span>
-                                        </div>
-                                    );
-                                })
-                            }
+                            <span>{fields[0]}</span>
+                            <span>{fields[1]}</span>
+                            <span>{fields[2]}</span>
                         </div>
                         <span>Actions</span>
                     </div>

@@ -23,15 +23,6 @@ export default function HomePage() {
     const [showModifyName,setShowModifyName] = React.useState(false);
     const [showUpdateField,setShowUpdateField] = React.useState(false);
     const navigate = useNavigate();
-    React.useEffect(() => { 
-        console.log('updated contentType please update the state');
-        if(contentId){
-            const newContent = ContentType && ContentType.map((response) => response.id===content.id,[ContentType]);
-            console.log('updated contentType please update the state');
-            setContent(newContent);
-        }
-        
-    },[ContentType,content]);
 
     const handleAddContentClick = async(contentId) => {
         setShowModal(true);
