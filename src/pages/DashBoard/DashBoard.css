@@ -88,3 +88,9 @@
     width: 100vw;
     flex-direction: row;
 }
+.content-entries-actions{
+    margin-right: 20px;
+}
+.content-entries-actions>*{
+    padding-left: 20px;
+}
