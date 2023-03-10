@@ -6,20 +6,12 @@ import {
     HomePage,DashBoard, PageNotFound, ErrorPage,Register,Login
 } from './pages';
 import { HOME_ROUTE, ERROR_ROUTE } from './constants/routes';
-// import makeRequest from './utils/makeRequest';
-// import { GET_ALL_CONTENTS } from './constants/apiEndPoint';
 import ContentTypeContext from './context/contentTypeContext';
 
 function App() {
 
     const [ContentType, setContentType] = React.useState();
     React.useEffect(() => {
-        // makeRequest(GET_ALL_CONTENTS).then((response) => ()=>{
-        //     console.log('sd',response.data);
-        //     setContentType(response.data);
-        // });
-        // console.log('ContentType', ContentType);
-
         const getContents =async()=>{
             const response = await axios('http://localhost:5050/contents');
             setContentType(response.data);
@@ -49,17 +41,3 @@ function App() {
 }
 
 export default App;
-
-
-
-{/* <ThemeContext.Provider value={value}>
-    <Header />
-    <Routes>
-        <Route path={HOME_ROUTE} element={<HomePage />} />
-        <Route path={EVENT_ROUTE} element={<EventPage />} />
-        <Route path={ERROR_ROUTE} element={<ErroPage />} />
-
-        <Route path="*" element={<PageNotFound />} />
-    </Routes>
-    <Footer />
-</ThemeContext.Provider>; */}
