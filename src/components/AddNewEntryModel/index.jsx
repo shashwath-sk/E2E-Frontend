@@ -46,8 +46,8 @@ export default function AddNewEntryModel({onClose,show,fields,contentId,contentN
     );
 }
 AddNewEntryModel.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    show: PropTypes.bool.isRequired,
+    onClose: PropTypes.func,
+    show: PropTypes.bool,
     fields: PropTypes.object,
     contentId: PropTypes.string,
     contentName: PropTypes.string

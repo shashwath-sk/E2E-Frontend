@@ -27,11 +27,11 @@ export default function AddTextField( { style,placeholder,placeholder2,contentId
 
 
 AddTextField.propTypes = {
-    placeholder: PropTypes.string.isRequired,
-    style: PropTypes.string.isRequired,
-    placeholder2: PropTypes.string.isRequired,
-    contentId: PropTypes.string.isRequired,
-    handleClick: PropTypes.func.isRequired,
-    setShowModal: PropTypes.func.isRequired,
-    setEntity: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    style: PropTypes.string,
+    placeholder2: PropTypes.string,
+    contentId: PropTypes.string,
+    handleClick: PropTypes.func,
+    setShowModal: PropTypes.func,
+    setEntity: PropTypes.func,
 };

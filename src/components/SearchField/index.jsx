@@ -15,5 +15,5 @@ export default function SearchField( { placeholder } ) {
 
 
 SearchField.propTypes = {
-    placeholder: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
 };

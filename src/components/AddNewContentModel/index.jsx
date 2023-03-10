@@ -87,11 +87,11 @@ export default function Modal({show,onClose,contentId,old,setContentId,onClickHa
 
 
 Modal.propTypes={
-    show: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    old: PropTypes.string.isRequired,
-    contentId: PropTypes.number.isRequired,
-    setContentId: PropTypes.func.isRequired,
-    onClickHandler: PropTypes.string.isRequired,
-    operation: PropTypes.string.isRequired,
+    show: PropTypes.bool,
+    onClose: PropTypes.func,
+    old: PropTypes.string,
+    contentId: PropTypes.number,
+    setContentId: PropTypes.func,
+    onClickHandler: PropTypes.string,
+    operation: PropTypes.string,
 };
