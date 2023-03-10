@@ -9,6 +9,7 @@ import pencil1 from '../../assets/pencil/pencil1.png';
 import edit1 from '../../assets/edit/edit1.png';
 import delete1 from '../../assets/delete/delete1.png';
 import Modal from '../../components/AddNewContentModel';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 
 export default function HomePage() {
@@ -21,28 +22,29 @@ export default function HomePage() {
     const [showAddNewContent,setShowAddNewContent] = React.useState(false);
     const [showModifyName,setShowModifyName] = React.useState(false);
     const [showUpdateField,setShowUpdateField] = React.useState(false);
-    // const [Entries,setEntries]= React.useState();
-
+    const navigate = useNavigate();
     React.useEffect(() => { 
+        console.log('updated contentType please update the state');
         if(contentId){
             const newContent = ContentType && ContentType.map((response) => response.id===content.id,[ContentType]);
+            console.log('updated contentType please update the state');
             setContent(newContent);
         }
         
-    },[ContentType ]);
+    },[ContentType,content]);
 
     const handleAddContentClick = async(contentId) => {
         setShowModal(true);
         setContentId(contentId);
     };
     const handleContentClick = async(contentId) => {
-        const response = await makeRequest(GET_CONTENT_BY_ID(contentId));
+        const response = await makeRequest(GET_CONTENT_BY_ID(contentId),navigate);
         console.log(response);
         setContent(response);
     };
     const handleDeleteFieldClick = async(contentId,field) => {
         console.log(contentId,field);
-        const response = await makeRequest(DELETE_FIELD(contentId),{},{
+        const response = await makeRequest(DELETE_FIELD(contentId),navigate,{
             data:{
                 'delField':field
             }
