@@ -16,7 +16,7 @@ export default function AddTextField( { style,placeholder,placeholder2,contentId
         }
     };
     return(
-        <div className={`${style}`} onClick={()=>handleClickDynamically()}>
+        <div className={`${style}`} onClick={()=>handleClickDynamically()} >
             <h3>{placeholder}</h3>
             {placeholder2&&<h3>{placeholder2}</h3>}
 

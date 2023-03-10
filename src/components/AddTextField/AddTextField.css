@@ -17,7 +17,6 @@
 }
 .contents{
     /* justify-content: space-between; */
-    border: 3px dotted white;
     border-radius: 10px;
     margin-top: 15px;
     display: flex;
@@ -31,6 +30,9 @@
 }
 .contents>*{
     color: rgb(144,144,144);
+}
+.contents:hover{
+    background-color: rgb(80,31,198);
 }
 
 .addTextField{
@@ -50,4 +52,10 @@
 .addTextField>*{
     color:rgb(80,31,198);
     font-weight:500
+}
+.div-hover:hover{
+    background-color: rgb(80,31,198);
+}
+.div-hover option:checked{
+    background-color: rgb(80,31,198);
 }
