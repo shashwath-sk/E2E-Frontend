@@ -3,7 +3,7 @@ import './App.css';
 import * as React from 'react';
 import axios from 'axios';
 import {
-    HomePage,DashBoard, PageNotFound, ErrorPage
+    HomePage,DashBoard, PageNotFound, ErrorPage,Register,Login
 } from './pages';
 import { HOME_ROUTE, ERROR_ROUTE } from './constants/routes';
 // import makeRequest from './utils/makeRequest';
@@ -34,6 +34,8 @@ function App() {
             <ContentTypeContext.Provider value={value}>
                 <BrowserRouter>
                     <Routes>
+                        <Route path="/" element={<Register/>} />
+                        <Route path="/login" element={<Login/>} />
                         <Route path={HOME_ROUTE} element={<HomePage />} />
                         <Route path="dashboard/:id" element={<DashBoard />} />
                         <Route path={ERROR_ROUTE} element={<ErrorPage />} />
