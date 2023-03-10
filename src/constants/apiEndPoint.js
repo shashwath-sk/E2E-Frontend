@@ -14,23 +14,26 @@ export const GET_CONTENT_ENTRIES = (ContentID) => ({
     url: `content/${ContentID}/entries`,
     method: 'GET'
 });
-
+export const UPDATE_CONTENT_NAME = (ContentID) => ({
+    url: `contents/${ContentID}`,
+    method: 'PUT'
+});
 export const ADD_CONTENT = {
     url: 'content',
     method: 'POST'
 };
 
-// export const GET_EVENT_BY_ID = (EventID) => ({
-//     url: `api/events/${EventID}`,
-//     method: 'GET'
-// });
+export const ADD_NEW_FIELD = (ContentID) => ({
+    url: `content/${ContentID}`,
+    method: 'POST'
+});
 
-// export const UPDATE_EVENT_ON_REGISTRATION = (EventID) => ({
-//     url: `api/events/${EventID}`,
-//     method: 'PATCH'
-// });
+export const UPDATE_FIELD = (ContentID) => ({
+    url: `content/${ContentID}`,
+    method: 'PUT'
+});
 
-// export const UPDATE_EVENT_ON_BOOKMARK = (EventID) => ({
-//     url: `api/events/${EventID}`,
-//     method: 'PATCH'
-// });
+export const DELETE_FIELD = (ContentID) => ({
+    url: `contents/${ContentID}`,
+    method: 'DELETE'
+});
