@@ -1,38 +1,44 @@
 import React from 'react';
 import './EntryModal.css';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-export default function AddNewEntryModel(props) {
-    if (!props.show) {
+import {ADD_CONTENT_ENTRIES} from '../../constants/apiEndPoint';
+import makeRequest from '../../utils/makeRequest';
+export default function AddNewEntryModel({onClose,show,fields,contentId,contentName}) {
+    if (!show) {
         return null;
     }
+    const [entry,setEntry] = React.useState([]);
     const handleAddEntries = async() => {
-        await axios({
-            method:'POST',
-            url:`http://localhost:5000/api/addEntries/${props.contentId}`,
-            data:{newfield:props.value}
-        });
+        await makeRequest(ADD_CONTENT_ENTRIES(contentId),{},{data:{newEntry:entry}})
+            .then((response)=>{
+                console.log(response);
+            });
+
+        onClose();
     };
     return (
-        <div className="modal" onClick={props.onClose}>
+        <div className="modal" onClick={onClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className='modal-header'>
-                    <span className='modal-title'>New Company Profile</span>
+                    <span className='modal-title'>{contentName}</span>
                 </div>
                 <div className='modal-body'>
                     {
-                        Object.keys(props.value).map((key,id) => {
+                        fields.map((key,id) => {
                             return (
                                 <div key={id}>
                                     <span>{key}</span>
-                                    <input type="text" />
+                                    <input type="text" 
+                                        value = {entry[key] || ''}
+                                        onChange={(event) => { setEntry({...entry,[key]:event.target.value}); }}
+                                    />
                                 </div>
                             );
                         })
                     }
                 </div>
                 <div className='modal-footer'>
-                    <button onClick={props.onClose} className='modal-close-button'>Close</button>
+                    <button onClick={onClose} className='modal-close-button'>Close</button>
                     <button className='modal-Add-button' onClick={handleAddEntries}>Add</button>
                 </div>
             </div>
@@ -42,6 +48,7 @@ export default function AddNewEntryModel(props) {
 AddNewEntryModel.propTypes = {
     onClose: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
-    value: PropTypes.object,
-    contentId: PropTypes.string
+    fields: PropTypes.object,
+    contentId: PropTypes.string,
+    contentName: PropTypes.string
 };
