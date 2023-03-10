@@ -3,7 +3,7 @@ import './App.css';
 import * as React from 'react';
 import axios from 'axios';
 import {
-    HomePage, PageNotFound, ErrorPage
+    HomePage,DashBoard, PageNotFound, ErrorPage
 } from './pages';
 import { HOME_ROUTE, ERROR_ROUTE } from './constants/routes';
 // import makeRequest from './utils/makeRequest';
@@ -35,7 +35,7 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path={HOME_ROUTE} element={<HomePage />} />
-                    
+                        <Route path="dashboard/:id" element={<DashBoard />} />
                         <Route path={ERROR_ROUTE} element={<ErrorPage />} />
                         <Route path="*" element={<PageNotFound />} />
                     </Routes>
