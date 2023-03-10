@@ -37,3 +37,18 @@ export const DELETE_FIELD = (ContentID) => ({
     url: `contents/${ContentID}`,
     method: 'DELETE'
 });
+
+export const ADD_CONTENT_ENTRIES = (ContentID) => ({
+    url: `content/${ContentID}/entries`,
+    method: 'POST'
+});
+
+export const DELETE_CONTENT_ENTRIES = (id,entryId) => ({
+    url: `content/${id}/entries/${entryId}`,
+    method: 'DELETE'
+});
+
+// export const UPDATE_CONTENT_ENTRIES = (ContentID) => ({
+//     url: `content/${ContentID}/entries/:id`,
+//     method: 'PUT'
+// });
