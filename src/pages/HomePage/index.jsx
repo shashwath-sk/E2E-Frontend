@@ -3,7 +3,8 @@ import * as React from 'react';
 import { ViewBar,Header,SearchField,AddTextField } from '../../components';
 import ContentTypeContext from '../../context/contentTypeContext';
 import makeRequest from '../../utils/makeRequest';
-import {GET_CONTENT_BY_ID} from '../../constants/apiEndPoint';
+import {GET_CONTENT_BY_ID,DELETE_FIELD} from '../../constants/apiEndPoint';
+import updateContentType from '../../utils/common/updateContentType';
 import pencil1 from '../../assets/pencil/pencil1.png';
 import edit1 from '../../assets/edit/edit1.png';
 import delete1 from '../../assets/delete/delete1.png';
@@ -12,23 +13,43 @@ import './HomePage.css';
 
 export default function HomePage() {
 
-    const { ContentType } = React.useContext(ContentTypeContext);
+    const { ContentType,setContentType} = React.useContext(ContentTypeContext);
     const [content,setContent] = React.useState();
     const [showModal,setShowModal] = React.useState(false);
+    const [contentId,setContentId] = React.useState();
+    const [showAddNewField,setShowAddNewField] = React.useState(false);
+    const [showAddNewContent,setShowAddNewContent] = React.useState(false);
+    const [showModifyName,setShowModifyName] = React.useState(false);
+    const [showUpdateField,setShowUpdateField] = React.useState(false);
     // const [Entries,setEntries]= React.useState();
 
+    React.useEffect(() => { 
+        if(contentId){
+            const newContent = ContentType && ContentType.map((response) => response.id===content.id,[ContentType]);
+            setContent(newContent);
+        }
+        
+    },[ContentType ]);
+
+    const handleAddContentClick = async(contentId) => {
+        setShowModal(true);
+        setContentId(contentId);
+    };
     const handleContentClick = async(contentId) => {
         const response = await makeRequest(GET_CONTENT_BY_ID(contentId));
+        console.log(response);
         setContent(response);
-        // const entries = await makeRequest(GET_CONTENT_ENTRIES(contentId));
-        // setEntries(entries.length);
     };
-
-
-    const handleAddContentClick = async() => {
-        setShowModal(true);
+    const handleDeleteFieldClick = async(contentId,field) => {
+        console.log(contentId,field);
+        const response = await makeRequest(DELETE_FIELD(contentId),{},{
+            data:{
+                'delField':field
+            }
+        });
+        updateContentType(ContentType,response,setContentType);        
     };
-    return(
+    return ContentType ? (
         <div className='home-page-container'>
             <ViewBar/>
             <div className='home-page-contents'>
@@ -36,10 +57,10 @@ export default function HomePage() {
                 <div className='content-types-fields'>
                     <div className='content-types'>
                         {ContentType&& <SearchField  placeholder={`${ContentType.length} Types` } />}
-                        <AddTextField style="addContentType" placeholder='+New Type' handleClick={handleAddContentClick} />
-                        <Modal onClose={() => setShowModal(false)} show={showModal} />
+                        <AddTextField style="addContentType" placeholder='+New Type' setEntity={setShowAddNewContent} setShowModal={setShowModal}/>
+                        {showAddNewContent && <Modal onClose={() => setShowModal(false)} show={showModal} onClickHandler={'handleOnAddContentClick'} operation={'create'}/>}
                         {ContentType && ContentType.map((content,index) => (
-                            <AddTextField key={index} style="contents" placeholder={content.Name} placeholder2={content.Entries} contentId = {content.id} handleClick = {handleContentClick}/>
+                            <AddTextField key={index} style="contents" placeholder={content.Name} placeholder2={Object.keys(content.Fields).length} contentId = {content.id} handleClick = {handleContentClick}/>
                         ))}
                     </div>
                     <div className='content-fields'>
@@ -47,21 +68,25 @@ export default function HomePage() {
                         <>
                             <div className='content-info'>
                                 <h1>{content.Name}</h1>
-                                <img src={pencil1} className="edit-img"alt="pencil" />
+                                <img src={pencil1} className="edit-img"alt="pencil" onClick={()=>{setShowModifyName(true),setShowModal(true),handleAddContentClick(content.id);}}/>
                             </div>
+                            {showModifyName && <Modal onClose={() => setShowModal(false)} show={showModal} contentId={contentId} setContentId={setContentId} onClickHandler={'handleOnUpdateNameClick'} operation={'update'}/> }
                             <span className='entries-info'>{`${Object.keys(content.Fields).length} Fields`}</span>
-                            <AddTextField style="addTextField" placeholder='Add Another Field'/>
+                            <AddTextField style="addTextField" placeholder='Add Another Field' contentId = {content.id} setEntity={setShowAddNewField} setShowModal={setShowModal}/>
+                            {showAddNewField && <Modal onClose={() => setShowModal(false)} show={showModal} contentId={content.id} setContentId={setContentId} onClickHandler={'handleOnAddFieldClick'} operation={'create'}/> }
+
                             <div className='all-fields'>
                                 {Object.keys(content.Fields).map((field,index) => (
                                     <div className='each-field' key={index}>
                                         <div>
-                                            <spna className="type-icon">Ab</spna>
+                                            <span className="type-icon">Ab</span>
                                             <span className='field-name'>{field}</span>
                                         </div>
                                         <span className='field-type'>String</span>
                                         <div className='field-options'>
-                                            <img src={edit1} className="edit-img"alt="edit" />
-                                            <img src={delete1} className="delete-img"alt="delete" />
+                                            <img src={edit1} className="edit-img"alt="edit" onClick={()=>{setShowUpdateField(true),setShowModal(true);}}/>
+                                            {showUpdateField && <Modal onClose={() => setShowModal(false)} show={showModal} contentId={content.id} setContentId={setContentId} old={field} onClickHandler={'handleOnUpdateFieldClick'} operation={'update'}/> }
+                                            <img src={delete1} className="delete-img"alt="delete" onClick={()=>{handleDeleteFieldClick(content.id,field);}} />
                                         </div>
                                     </div>
                                 ))}
@@ -70,59 +95,12 @@ export default function HomePage() {
                     </div>
                 </div>
 
-            </div>
-            {/* <CustomtextField/> */}
-            
+            </div>            
         </div>
-    );
+    ):
+        (
+            <div>
+                <h1>loading</h1>
+            </div>
+        );
 }
-// const [Events, setEvents] = React.useState();
-// const navigate = useNavigate();
-// const [filters, setFilters] = React.useState();
-// const [searchBy, setSearchBy] = React.useState();
-
-// React.useEffect(() => {
-//     makeRequest(GET_ALL_EVENTS, navigate).then((response) => (
-//         setEvents(response)
-//     ));
-// }, []);
-
-// React.useEffect(() => {
-//     if (filters) {
-//         const filteredEvent = Events.filter((event) => event[filters] === true);
-//         setEvents(filteredEvent);
-//     }
-// }, [filters]);
-
-// React.useEffect(() => {
-//     if (searchBy) {
-//         const searchdata = Events.filter((event) => event.name.toLowerCase().includes(searchBy));
-//         setEvents(searchdata);
-//     }
-// }, [searchBy]);
-
-//     return Events ? (
-//         <div className="home-container">
-//             <FilterAndSearch setFilters={setFilters} setSearchBy={setSearchBy} />
-//             <div className="events-container">
-//                 {Events.map((event) => (
-//                     <Event key={event.id} Event={event} isRegistered={event.isRegistered} isBookmarked={event.isBookmarked} />
-//                 ))}
-//             </div>
-
-//         </div>
-//     )
-//         : (
-//             <div>
-//                 <p>Loading...</p>
-//             </div>
-//         );
-// }
-
-// const [ContentType, setContentType] = React.useState();
-//     React.useEffect(() => {
-//         makeRequest(GET_ALL_CONTENTS).then((response) => ()=>{
-//             console.log(response);
-//             setContentType(response);
-//         });
-//     },[]);

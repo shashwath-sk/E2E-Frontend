@@ -71,3 +71,6 @@
 .field-options{
     padding-right: 20px;
 }
+.field-options>*{
+    padding-left: 10px;
+}
