@@ -20,7 +20,7 @@ export default function Viewbar() {
                 {
                     ContentType && ContentType.map((content,index) => {
                         return (
-                            <li key={index} onClick={()=>navigate(`/dashboard/${content.id}`)}>{content.Name}</li>
+                            <li key={index} className="view-bar-contents" onClick={()=>{navigate(`/dashboard/${content.id}`);window.location.reload();}}>{content.Name}</li>
                         );
                     })
                 }
