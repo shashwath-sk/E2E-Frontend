@@ -9,13 +9,14 @@
     display: flex;
 }
 .content-types{
-    height: 89vh;
+    height: 80.5vh;
     width: 310px;
     background-color: rgb(212,214,228);
     padding: 35px;
+    overflow: auto;
 }
 .content-fields{
-    height: 89vh;
+    height: 81.5vh;
     width: 53.5vw;
     background-color: rgb(235,238,252);
 }
@@ -74,3 +75,10 @@
 .field-options>*{
     padding-left: 10px;
 }
+
+@media only screen and (max-width: 1300px) {
+    .home-page-container{
+        display: flex;
+        flex-direction: column;
+    }
+  }
